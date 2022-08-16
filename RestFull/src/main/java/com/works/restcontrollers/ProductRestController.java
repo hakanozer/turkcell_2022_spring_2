@@ -51,4 +51,10 @@ public class ProductRestController {
         return pService.listPage(page);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity search(@RequestParam(defaultValue = "") String q, @RequestParam(defaultValue = "0") int page) {
+        return pService.search(q, page);
+    }
+
 }

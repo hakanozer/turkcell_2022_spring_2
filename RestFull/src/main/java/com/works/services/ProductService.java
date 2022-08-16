@@ -82,4 +82,13 @@ public class ProductService {
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 
+
+    public ResponseEntity search( String q, int page ) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        hm.put(REnum.status, true);
+        Pageable pageable = PageRequest.of(page, 10);
+        hm.put(REnum.result, pRepo.findByTitleContainsIgnoreCaseOrDetailContainsIgnoreCase(q,q, pageable));
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
 }

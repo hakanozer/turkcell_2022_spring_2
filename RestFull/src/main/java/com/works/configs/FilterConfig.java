@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @Configuration
 public class FilterConfig implements Filter {
@@ -24,7 +25,16 @@ public class FilterConfig implements Filter {
 
         String url = req.getRequestURI();
         String agent = req.getHeader("user-agent");
-        System.out.println( url + " : " + agent );
+        String sessionID = req.getSession().getId();
+        String ip = req.getRemoteAddr();
+        long date = new Date().getTime();
+        System.out.println( url + " : " + agent +  " : " + sessionID +  " : " + ip + " : " +  date );
+
+        // fail user
+        if ( !url.equals("/error") && ip.equals("0:0:0:0:0:0:0:1") ){
+            res.sendRedirect("http://localhost:8090/error");
+        }
+
 
         chain.doFilter(req, res);
     }

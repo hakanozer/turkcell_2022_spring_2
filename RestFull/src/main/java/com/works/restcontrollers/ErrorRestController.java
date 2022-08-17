@@ -16,7 +16,8 @@ public class ErrorRestController {
     @GetMapping("/error")
     public ResponseEntity error() {
         Map<REnum, Object> hm = new LinkedHashMap<>();
-        
+        hm.put(REnum.status, false);
+        hm.put(REnum.message, "Fail Message");
         return new ResponseEntity(hm, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

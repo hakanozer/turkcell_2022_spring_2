@@ -1,6 +1,7 @@
 package com.works.services;
 
 import com.works.entities.Note;
+import com.works.repositories.JoinNoteCatRepository;
 import com.works.repositories.NoteRepository;
 import com.works.utils.REnum;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class NoteService {
 
     final NoteRepository nRepo;
+    final JoinNoteCatRepository jRepo;
 
     public ResponseEntity save(Note note) {
         Map<REnum, Object> hm = new LinkedHashMap<>();
@@ -31,7 +33,14 @@ public class NoteService {
     public ResponseEntity list() {
         Map<REnum, Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status, true);
-        hm.put(REnum.result, nRepo.findAll() );
+        hm.put(REnum.result, jRepo.joinList() );
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    public ResponseEntity listCat(int cid) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        hm.put(REnum.status, true);
+        hm.put(REnum.result, jRepo.joinListCat(cid) );
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 

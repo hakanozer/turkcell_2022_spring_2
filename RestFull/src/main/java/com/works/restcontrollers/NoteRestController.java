@@ -24,4 +24,10 @@ public class NoteRestController {
         return nService.list();
     }
 
+    @GetMapping("/list/{cid}")
+    public ResponseEntity listCat( @PathVariable int cid )
+    {
+        return nService.listCat(cid);
+    }
+
 }

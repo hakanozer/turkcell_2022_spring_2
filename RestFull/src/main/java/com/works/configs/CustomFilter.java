@@ -1,8 +1,14 @@
 package com.works.configs;
 
 import com.google.gson.Gson;
+import com.works.entities.Info;
+import com.works.repositories.InfoRepository;
 import com.works.utils.REnum;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -17,7 +23,12 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Configuration
+@RequiredArgsConstructor
 public class CustomFilter extends GenericFilterBean {
+
+    final InfoRepository iRepo;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -28,7 +39,19 @@ public class CustomFilter extends GenericFilterBean {
         String sessionID = req.getSession().getId();
         String ip = req.getRemoteAddr();
         long date = new Date().getTime();
-        System.out.println( url + " : " + agent +  " : " + sessionID +  " : " + ip + " : " +  date );
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth != null ? auth.getName() : "";
+        System.out.println( name + " : " + url + " : " + agent +  " : " + sessionID +  " : " + ip + " : " +  date );
+
+        Info i = new Info();
+        i.setName(name);
+        i.setUrl(url);
+        i.setAgent(agent);
+        i.setDate(date);
+        i.setIp(ip);
+        i.setSessionID(sessionID);
+        iRepo.save(i);
 
         // fail user
         /*

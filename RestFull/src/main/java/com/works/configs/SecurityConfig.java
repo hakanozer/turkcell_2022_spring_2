@@ -15,6 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final AdminDetailService detailService;
     final PasswordEncoder encoder;
+    final CustomFilter customFilter;
 
     // sql -> username, password
     @Override
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/note/**").hasRole("note")
                 .and()
                 .csrf().disable().formLogin().disable();
-        http.addFilterBefore(new CustomFilter(), BasicAuthenticationFilter.class);
+        http.addFilterBefore( customFilter , BasicAuthenticationFilter.class);
         //http.csrf().disable().formLogin().disable();
     }
 

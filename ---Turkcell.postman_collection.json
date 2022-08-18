@@ -286,6 +286,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8090/admin/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"zehra@mail.com\",\n    \"password\": \"12345\",\n    \"enabled\": true,\n    \"accountNonExpired\": true,\n    \"credentialsNonExpired\": true,\n    \"accountNonLocked\": true,\n    \"roles\": [\n        { \"rid\": 1 },\n        { \"rid\": 2 },\n        { \"rid\": 3 }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/admin/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"admin",
+						"register"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

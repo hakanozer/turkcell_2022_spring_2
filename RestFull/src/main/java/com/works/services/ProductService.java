@@ -3,6 +3,7 @@ package com.works.services;
 import com.works.entities.Product;
 import com.works.repositories.ProductRepository;
 import com.works.utils.REnum;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,10 @@ import java.util.Optional;
 public class ProductService {
 
     final ProductRepository pRepo;
-    public ProductService(ProductRepository pRepo) {
+    final CacheManager cacheManager;
+    public ProductService(ProductRepository pRepo, CacheManager cacheManager) {
         this.pRepo = pRepo;
+        this.cacheManager = cacheManager;
     }
 
 
@@ -29,6 +32,7 @@ public class ProductService {
         pRepo.save(product);
         hm.put(REnum.status, true);
         hm.put(REnum.result, product);
+        cacheManager.getCache("productList").clear();
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 

@@ -1,12 +1,14 @@
 package com.works.configs;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.works.utils.REnum;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,18 +17,9 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//@Configuration
-public class FilterConfig implements Filter {
-
-    @Override
-    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
-        System.out.println("Server UP");
-    }
-
+public class CustomFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
@@ -60,12 +53,6 @@ public class FilterConfig implements Filter {
 
 
         chain.doFilter(req, res);
-    }
 
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
-        System.out.println("Serv DOWN");
     }
-
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 public class ErrorRestController {
 
-    @GetMapping("/error")
+    @GetMapping("/errorx")
     public ResponseEntity error() {
         Map<REnum, Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status, false);

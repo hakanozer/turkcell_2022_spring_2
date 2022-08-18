@@ -20,4 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().formLogin().disable();
     }
 
+    /*
+    ali@mail.com - 12345 - 1- customer
+    veli@mail.com - 12345 - 2- product
+    mehmet@mail.com - 12345 - 3- note
+    zehra@mail.com - 12345 - customer,product,note
+     */
+
 }

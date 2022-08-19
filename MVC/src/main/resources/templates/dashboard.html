@@ -8,7 +8,53 @@
 </head>
 <body>
 <div class="container">
-    <h1>Welcome Dashboard</h1>
+    <h3>User List</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each=" item : ${productList} ">
+            <th scope="row" th:text="${item.id}"></th>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.username}"></td>
+            <td th:text="${item.email}"></td>
+            <td th:text="${item.phone}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+    <h3>Currency List</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Forex Buying</th>
+            <th scope="col">Forex Selling</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each=" item : ${xml} ">
+            <th scope="row" th:text="${item.currencyName}"></th>
+            <td th:text="${item.forexBuying}"></td>
+            <td th:text="${item.forexSelling}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
 </div>
 </body>
 </html>
